@@ -1,0 +1,87 @@
+{% extends "index.html" %}
+
+
+{% block report_block %}
+<div class="chart">
+    <h3 id="chartTitle">Sales Graph</h3>
+    <canvas id="myChart" width="200" height="100"></canvas>
+
+    {{ label|json_script:"chart-labels" }}
+    {{ data|json_script:"chart-data" }}
+    {{ sortby|json_script:"chart-sortby"}}
+
+    <script>
+        // Parse the data from the script tags
+        const labels = JSON.parse(document.getElementById('chart-labels').textContent);
+        const data = JSON.parse(document.getElementById('chart-data').textContent);
+        const sortby = JSON.parse(document.getElementById('chart-sortby').textContent);
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+                type: 'line', // Specify the chart type (e.g., bar, line, pie)
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: sortby,
+                        data: data,
+                        backgroundColor: 'rgba(24, 171, 225, 0.94)',
+                        borderColor: 'rgba(0, 0, 0, 1)',
+                        borderWidth: 2,
+                        tension: 0.4
+                    },
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: function(value, index, ticks) {
+                                    if (value >= 1000){
+                                        return value/1000 + "K";
+                                    }
+                                    return value;
+                                }
+                            }
+                        }
+                    },
+                    layout: {
+                        padding:10
+                    }
+                }
+            });
+        function submitFilter(value) {
+            const filter = document.getElementById("filter");
+            filter.value = value;
+            filter.form.submit();
+        }
+    </script>
+    <div class="sales_filter">
+        <form class="sales_form" method="post" action="/store/home/">
+            {% csrf_token %}
+            <input id="filter" name="filter" value=""  type="hidden">
+            <button type="button" onclick="submitFilter('1year')">1 Year</button>
+            <button type="button" onclick="submitFilter('2year')">2 Year</button>
+            <button type="button" onclick="submitFilter('3year')">3 Year</button>
+            <button type="button" onclick="submitFilter('month')">Month</button>
+        </form>
+    </div>
+</div>
+<div class="totalBox">
+    <div class="totalBox_container">
+        <h3 id="totalHeading">Total Orders</h3>
+        <h1 id="totalText">{{total_order}}</h1>
+    </div>
+    <div class="totalBox_container">
+        <h3 id="totalHeading">Total Sales(₹)</h3>
+        <h1 id="totalText">{{net_sales_price}}</h1>
+    </div>
+    <div class="totalBox_container">
+        <h3 id="totalHeading">Total Customers</h3>
+        <h1 id="totalText">{{total_customer}}</h1>
+    </div>
+    <div class="totalBox_container">
+        <h3 id="totalHeading">Total Products</h3>
+        <h1 id="totalText">{{total_product}}</h1>
+    </div>
+</div>
+{% endblock report_block %}

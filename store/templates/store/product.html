@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+
+{% block report_block %}
+<div class="displayBox" id="productBox">
+    <h3>Product(s)</h3>
+    <div class="tableBox">
+        <table>
+            <tr>
+                <th>Prod Id</th>
+                <th>Prod Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Availability</th>
+            </tr>
+            {% for product in products %}
+            <tr>
+                <td>{{product.prodId}}</td>
+                <td>{{product.prodName}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.availability}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="curdBox">
+    <a class="manageBtn">Manage</a>
+    <div class="searchBox">
+        <form class="column_form" method="post" action="/store/product/">
+            {% csrf_token %}
+            <label>Search By</label>
+            <select name="search_by" id="query">
+                <option value="prod_id">prod id</option>
+                <option value="prod_name">prod name</option>
+                <option value="availability">availability</option>
+            </select>
+
+            <input name="search_value" placeholder="search...">
+            <button name="search_query">Search</button>
+            <button name="reset">Reset</button>
+        </form>
+    </div>
+    <div class="sortBox">
+        <form class="column_form" method="post" action="/store/product/">
+            {% csrf_token %}
+            <label>Sort By</label>
+            <select name="sort_by" id="query">
+                <option value="ascending">a to z</option>
+                <option value="desending">z to a</option>
+            </select>
+            <button name="name_sort">Name</button>
+            <button name="id_sort">Product Id</button>
+        </form>
+    </div>
+</div>
+
+{% endblock report_block %}

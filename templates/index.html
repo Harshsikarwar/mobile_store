@@ -1,0 +1,26 @@
+{% load static %}
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" viewport="UTF-8">
+        <link rel="stylesheet" href={% static 'index.css' %}>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    </head>
+    <body>
+        <div class="dashboard">
+            <div class="panel">
+                <div class="titleBox">
+                    <h3 id="panelTitle">Mobile Store</h3>
+                </div>
+                <ul>
+                    <li id="option"><a href="/store/home/">Home</a></li>
+                    <li id="option"><a href="/store/customer/">Customer</a></li>
+                    <li id="option"><a href="/store/product/">Product</a></li>
+                    <li id="option"><a href="/store/order/">Order</a></li>
+                </ul>
+            </div>
+            <div class="report">
+                {% block  report_block%}{% endblock  %}
+            </div>
+        </div>
+    </body>
+</html>

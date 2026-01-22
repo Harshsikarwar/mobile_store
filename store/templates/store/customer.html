@@ -1,0 +1,102 @@
+{% extends "index.html" %}
+
+{% block report_block %}
+<div class="displayBox">
+    <h3>Customer(s)</h3>
+    <div class="tableBox">
+        <table>
+            <tr>
+                <th>CusId</th>
+                <th>Fname</th>
+                <th>Lname</th>
+                <th>Email</th>
+                <th>Address</th>
+            </tr>
+            {% for customer in customers %}
+            <tr>
+                <td>{{customer.customerId}}</td>
+                <td>{{customer.fname}}</td>
+                <td>{{customer.lname}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.house}}, {{customer.street}}, 
+                    {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
+            </tr>
+            <tr>
+                <td>{{customer.customerId}}</td>
+                <td>{{customer.fname}}</td>
+                <td>{{customer.lname}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.house}}, {{customer.street}}, 
+                    {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
+            </tr>
+            <tr>
+                <td>{{customer.customerId}}</td>
+                <td>{{customer.fname}}</td>
+                <td>{{customer.lname}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.house}}, {{customer.street}}, 
+                    {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
+            </tr>
+            <tr>
+                <td>{{customer.customerId}}</td>
+                <td>{{customer.fname}}</td>
+                <td>{{customer.lname}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.house}}, {{customer.street}}, 
+                    {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <h3>Contact(s)</h3>
+    <div class="tableBox">
+        <table>
+            <tr>
+                <th>CusId</th>
+                <th>Phone</th>
+            </tr>
+            {% for cus_phone in customer_phone %}
+            <tr>
+                <td>{{cus_phone.customer}}</td>
+                <td>{{cus_phone.phone}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="curdBox">
+    <a class="manageBtn">Manage</a>
+    <div class="searchBox">
+        <form class="column_form" method="post" action="/store/customer/">
+            {% csrf_token %}
+            <label>Search By</label>
+            <select name="search_by" id="query">
+                <option value="customer_id">customer id</option>
+                <option value="fname">fname</option>
+                <option value="Lname">Lname</option>
+                <option value="email">email</option>
+                <option value="city">city</option>
+                <option value="state">state</option>
+            </select>
+
+            <input name="search_value" placeholder="search...">
+            <button name="search_query">Search</button>
+            <button name="reset">Reset</button>
+        </form>
+    </div>
+    <div class="sortBox">
+        <form class="column_form" method="post" action="/store/customer/">
+            {% csrf_token %}
+            <label>Sort By</label>
+            <select name="sort_by" id="query">
+                <option value="ascending">a to z</option>
+                <option value="desending">z to a</option>
+            </select>
+            <button name="name_sort">Name</button>
+            <button name="id_sort">customer id</button>
+        </form>
+    </div>
+</div>
+
+{% endblock report_block %}
