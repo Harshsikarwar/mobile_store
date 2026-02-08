@@ -4,7 +4,7 @@
 {% block report_block %}
 <div class="chart">
     <h3 id="chartTitle">Sales Graph</h3>
-    <canvas id="myChart" width="200" height="100"></canvas>
+    <canvas id="myChart"></canvas>
 
     {{ label|json_script:"chart-labels" }}
     {{ data|json_script:"chart-data" }}
@@ -33,19 +33,19 @@
                 },
                 options: {
                     scales: {
-                        y: {
-                            ticks: {
-                                callback: function(value, index, ticks) {
-                                    if (value >= 1000){
-                                        return value/1000 + "K";
-                                    }
-                                    return value;
-                                }
+                    yAxes: [{
+                        ticks: {
+                        callback: function(value) {
+                            if (value >= 1000) {
+                            return (value / 1000).toFixed(1) + 'K';
                             }
+                            return value;
                         }
+                        }
+                    }]
                     },
                     layout: {
-                        padding:10
+                    padding: 10
                     }
                 }
             });
