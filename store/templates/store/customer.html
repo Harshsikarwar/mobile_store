@@ -21,30 +21,6 @@
                 <td>{{customer.house}}, {{customer.street}}, 
                     {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
             </tr>
-            <tr>
-                <td>{{customer.customerId}}</td>
-                <td>{{customer.fname}}</td>
-                <td>{{customer.lname}}</td>
-                <td>{{customer.email}}</td>
-                <td>{{customer.house}}, {{customer.street}}, 
-                    {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
-            </tr>
-            <tr>
-                <td>{{customer.customerId}}</td>
-                <td>{{customer.fname}}</td>
-                <td>{{customer.lname}}</td>
-                <td>{{customer.email}}</td>
-                <td>{{customer.house}}, {{customer.street}}, 
-                    {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
-            </tr>
-            <tr>
-                <td>{{customer.customerId}}</td>
-                <td>{{customer.fname}}</td>
-                <td>{{customer.lname}}</td>
-                <td>{{customer.email}}</td>
-                <td>{{customer.house}}, {{customer.street}}, 
-                    {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
-            </tr>
             {% endfor %}
         </table>
     </div>
@@ -71,10 +47,15 @@
         <form class="column_form" method="post" action="/store/customer/">
             {% csrf_token %}
             <label>Search By</label>
+            
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+
             <select name="search_by" id="query">
                 <option value="customer_id">customer id</option>
                 <option value="fname">fname</option>
-                <option value="Lname">Lname</option>
+                <option value="lname">Lname</option>
                 <option value="email">email</option>
                 <option value="city">city</option>
                 <option value="state">state</option>

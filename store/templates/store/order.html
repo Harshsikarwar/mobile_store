@@ -48,6 +48,11 @@
         <form class="column_form" method="post" action="/store/order/">
             {% csrf_token %}
             <label>Search By</label>
+            
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+
             <select name="search_by" id="query">
                 <option value="order_id">order id</option>
                 <option value="status">status</option>

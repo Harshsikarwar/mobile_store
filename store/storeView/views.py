@@ -1,8 +1,9 @@
-from django.shortcuts import render, render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import*
+from ..models import*
 from datetime import*
-from .forms import customer_form
+from ..forms import customer_form
+from django.contrib import messages
 # Create your views here.
 
 #getters
@@ -29,7 +30,7 @@ def get_data(filter = "1year"):
     order_product = Order_Product.objects.order_by("order")
     if filter == "month":
         orders = orders.filter(orderDate__month=str(date.today().month), orderDate__iso_year = str(date.today().year))
-        data = [[n for n in range(1,32)],0,0]
+        data = [[n*0 for n in range(1,32)],0,0]
         for od in orders:
             for op in order_product:
                 for currDay in range(1,32):
@@ -134,6 +135,7 @@ def home(request):
         filter = request.POST.get("filter")
         label = get_labels(filter)
         data = get_data(filter)
+        print(data)
         return render(request, "store/home.html",{"label":label,
                                                   "data":data[0],
                                                   "sortby":f"{filter} - sales report",
@@ -159,21 +161,39 @@ def customer(request):
             search_by = request.POST.get("search_by")
             search_value = request.POST.get("search_value")
             if search_by == "customer_id" and search_value != "":
+                if not customers[1].filter(customerId = search_value).exists():
+                    messages.error(request,"customer id not found")
+                    return redirect("/store/customer/")
                 customers[1]=customers[1].filter(customerId = search_value)
                 customer_phone=customer_phone.filter(customer__in=customers[1]) 
             elif search_by == "fname" and search_value != "":
+                if not customers[1].filter(fname = search_value).exists():
+                    messages.error(request,"fname not found")
+                    return redirect("/store/customer/")
                 customers[1]=customers[1].filter(fname=search_value)
                 customer_phone=customer_phone.filter(customer__in=customers[1]) 
             elif search_by == "lname" and search_value != "":
+                if not customers[1].filter(lname = search_value).exists():
+                    messages.error(request,"lname not found")
+                    return redirect("/store/customer/")
                 customers[1]=customers[1].filter(lname = search_value)
                 customer_phone=customer_phone.filter(customer__in=customers[1]) 
             elif search_by == "email" and search_value != "":
+                if not customers[1].filter(email = search_value).exists():
+                    messages.error(request,"email not found")
+                    return redirect("/store/customer/")
                 customers[1]=customers[1].filter(email = search_value) 
                 customer_phone=customer_phone.filter(customer__in=customers[1]) 
             elif search_by == "city" and search_value != "":
+                if not customers[1].filter(ciyt = search_value).exists():
+                    messages.error(request,"city not found")
+                    return redirect("/store/customer/")
                 customers[1]=customers[1].filter(city = search_value)
                 customer_phone=customer_phone.filter(customer__in=customers[1]) 
             elif search_by == "state" and search_value != "":
+                if not customers[1].filter(state = search_value).exists():
+                    messages.error(request,"state not found")
+                    return redirect("/store/customer/")
                 customers[1]=customers[1].filter(state = search_value)  
                 customer_phone=customer_phone.filter(customer__in=customers[1])
             else:
@@ -206,10 +226,19 @@ def product(request):
             search_by = request.POST.get("search_by")
             search_value = request.POST.get("search_value")
             if search_by == "prod_id" and search_value != "":
+                if not products[1].filter(prodId = search_value).exists():
+                    messages.error(request,"product id not found")
+                    return redirect("/store/product/")
                 products[1]=products[1].filter(prodId = search_value)
             elif search_by == "prod_name" and search_value != "":
+                if not products[1].filter(prodName = search_value).exists():
+                    messages.error(request,"product name not found")
+                    return redirect("/store/product/")
                 products[1]=products[1].filter(prodName=search_value) 
             elif search_by == "availability" and search_value != "":
+                if not products[1].filter(availability = search_value).exists():
+                    messages.error(request,"availability not found")
+                    return redirect("/store/product/")
                 products[1]=products[1].filter(availability = search_value)     
             else:
                 print("view : invalid : product") 
@@ -240,19 +269,33 @@ def order(request):
         if "search_query" in request.POST:
             search_by = request.POST.get("search_by")
             search_value = request.POST.get("search_value")
+
             if search_by == "order_id" and search_value != "":
+                if not orders[1].filter(orderId = search_value).exists():
+                    messages.error(request,"order id not found")
+                    return redirect("/store/order/")
                 orders[1]=orders[1].filter(orderId = search_value)
                 order_product=order_product.filter(order__in=orders[1]) 
+
             elif search_by == "status" and search_value != "":
+                if not orders[1].filter(status = search_value).exists():
+                    messages.error(request,"status id not found")
+                    return redirect("/store/order/")
                 orders[1]=orders[1].filter(status = search_value)
-                order_product=order_product.filter(order__in=orders[1])  
+                order_product=order_product.filter(order__in=orders[1]) 
+
             elif search_by == "payment_type" and search_value != "":
+                if not orders[1].filter(paymentType = search_value).exists():
+                    messages.error(request,"payment type not found")
+                    return redirect("/store/order/")
                 orders[1]=orders[1].filter(paymentType = search_value)
-                order_product=order_product.filter(order__in=orders[1])      
+                order_product=order_product.filter(order__in=orders[1]) 
+
             else:
                 print("view : invalid : product") 
+
         if "reset" in request.POST:
-            orders = get_product(all=True, count_all=False)
+            orders = get_order(all=True)
         
         if "name_sort" in request.POST:
             sortby = request.POST.get("sort_by")
