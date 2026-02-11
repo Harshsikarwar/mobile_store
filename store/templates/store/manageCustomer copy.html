@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block report_block %}
+<div class="managmentBox">
+    <h1>Update Customer</h1>
+    <form class="managmentForm" method="POST">
+        {% csrf_token %}
+        {{form.as_div}}
+        <button type="submit" name="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

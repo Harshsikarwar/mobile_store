@@ -14,12 +14,16 @@
             </tr>
             {% for customer in customers %}
             <tr>
-                <td>{{customer.customerId}}</td>
-                <td>{{customer.fname}}</td>
-                <td>{{customer.lname}}</td>
-                <td>{{customer.email}}</td>
-                <td>{{customer.house}}, {{customer.street}}, 
+                <td rowspan="2">{{customer.customerId}}</td>
+                <td rowspan="2">{{customer.fname}}</td>
+                <td rowspan="2">{{customer.lname}}</td>
+                <td rowspan="2">{{customer.email}}</td>
+                <td rowspan="2">{{customer.house}}, {{customer.street}}, 
                     {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
+                <tr>
+                    <td><a class="updateBtn" href="/store/update_customer/{{customer.customerId}}/">Update</a></td>
+                    <td><a class="deleteBtn" href="/store/delete_customer/{{customer.customerId}}">Delete</a></td>
+                </tr>
             </tr>
             {% endfor %}
         </table>
@@ -42,7 +46,7 @@
 </div>
 
 <div class="curdBox">
-    <a class="manageBtn">Manage</a>
+    <a class="manageBtn" href="/store/create_customer/">Create</a>
     <div class="searchBox">
         <form class="column_form" method="post" action="/store/customer/">
             {% csrf_token %}
