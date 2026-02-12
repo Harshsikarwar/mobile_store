@@ -9,5 +9,8 @@ urlpatterns = [
     path("order/", views.order, name="order"),
     path("create_customer/", managmentView.createCustomer, name="createCustomer"),
     path("update_customer/<str:customerId>/", managmentView.updateCustomer, name="updateCustomer"),
-    path("delete_customer/<str:customerId>/", managmentView.deleteCustomer, name="deleteCustomer")
+    path("delete_customer/<str:customerId>/", managmentView.deleteCustomer, name="deleteCustomer"),
+    path("add_contact/", managmentView.addContact, name="addContact"),
+    path("update_contact/<str:contact>/", managmentView.updateContact, name="updateContact"),
+    path("delete_contact/<str:contact>/", managmentView.deleteContact, name="deleteContact"),
 ]

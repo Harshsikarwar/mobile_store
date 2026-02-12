@@ -28,7 +28,10 @@
             {% endfor %}
         </table>
     </div>
-    <h3>Contact(s)</h3>
+    <div style="display:flex; flex-direction:row;">
+        <h3>Contact(s)</h3>
+        <a class="manageBtn" href="/store/add_contact/">Add Contact</a>
+    </div>
     <div class="tableBox">
         <table>
             <tr>
@@ -37,8 +40,12 @@
             </tr>
             {% for cus_phone in customer_phone %}
             <tr>
-                <td>{{cus_phone.customer}}</td>
-                <td>{{cus_phone.phone}}</td>
+                <td rowspan="2">{{cus_phone.customer}}</td>
+                <td rowspan="2">{{cus_phone.phone}}</td>
+            </tr>
+            <tr>
+                <td><a class="updateBtn" href="/store/update_contact/{{cus_phone.phone}}/">Update</a></td>
+                <td><a class="deleteBtn" href="/store/delete_contact/{{cus_phone.phone}}/">Delete</a></td>
             </tr>
             {% endfor %}
         </table>

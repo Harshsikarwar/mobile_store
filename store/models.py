@@ -25,7 +25,7 @@ class Customer(models.Model):
 #multiattribute table/model
 class CustomerPhone(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, unique=True)
 
     def __str__(self):
         return f"{self.customer.customerId} : {self.phone}"
