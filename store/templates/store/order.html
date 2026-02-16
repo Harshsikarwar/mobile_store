@@ -13,15 +13,22 @@
             </tr>
             {% for order in orders %}
             <tr>
-                <td>{{order.orderId}}</td>
-                <td>{{order.status}}</td>
-                <td>{{order.orderDate}}</td>
-                <td>{{order.paymentType}}</td>
+                <td rowspan="2">{{order.orderId}}</td>
+                <td rowspan="2">{{order.status}}</td>
+                <td rowspan="2">{{order.orderDate}}</td>
+                <td rowspan="2">{{order.paymentType}}</td>
+                <tr>
+                    <td><a class="updateBtn" href="/store/update_order/{{order.orderId}}/">Update</a></td>
+                    <td><a class="deleteBtn" href="/store/delete_order/{{order.orderId}}/">Delete</a></td>
+                </tr> 
             </tr>
             {% endfor %}
         </table>
     </div>
-    <h3>Contact(s)</h3>
+    <div style="display:flex; flex-direction:row;">
+        <h3>Product(s)</h3>
+        <a class="manageBtn" href="/store/add_orderproduct/">Add Product</a>
+    </div>
     <div class="tableBox">
         <table>
             <tr>
@@ -32,10 +39,14 @@
             </tr>
             {% for ord in order_product %}
             <tr>
-                <td>{{ord.order}}</td>
-                <td>{{ord.product}}</td>
-                <td>{{ord.quantity}}</td>
-                <td>{{ord.price}}</td>
+                <td rowspan="2">{{ord.order}}</td>
+                <td rowspan="2">{{ord.product}}</td>
+                <td rowspan="2">{{ord.quantity}}</td>
+                <td rowspan="2">{{ord.price}}</td>
+                <tr>
+                    <td><a class="updateBtn" href="/store/update_orderproduct/{{ord.order}}/{{ord.product.prodId}}/">Update</a></td>
+                    <td><a class="deleteBtn" href="/store/delete_orderproduct/{{ord.order}}/{{ord.product.prodId}}/">Delete</a></td>
+                </tr>
             </tr>
             {% endfor %}
         </table>
@@ -43,7 +54,7 @@
 </div>
 
 <div class="curdBox">
-    <a class="manageBtn">Manage</a>
+    <a class="manageBtn" href="/store/create_order/">Manage</a>
     <div class="searchBox">
         <form class="column_form" method="post" action="/store/order/">
             {% csrf_token %}

@@ -14,11 +14,15 @@
             </tr>
             {% for product in products %}
             <tr>
-                <td>{{product.prodId}}</td>
-                <td>{{product.prodName}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.quantity}}</td>
-                <td>{{product.availability}}</td>
+                <td rowspan="2">{{product.prodId}}</td>
+                <td rowspan="2">{{product.prodName}}</td>
+                <td rowspan="2">{{product.price}}</td>
+                <td rowspan="2">{{product.quantity}}</td>
+                <td rowspan="2">{{product.availability}}</td>
+                <tr>
+                    <td><a class="updateBtn" href="/store/update_product/{{product.prodId}}/">Update</a></td>
+                    <td><a class="deleteBtn" href="/store/delete_product/{{product.prodId}}/">Delete</a></td>
+                </tr>
             </tr>
             {% endfor %}
         </table>
@@ -26,7 +30,7 @@
 </div>
 
 <div class="curdBox">
-    <a class="manageBtn">Manage</a>
+    <a class="manageBtn" href="/store/add_product/">Manage</a>
     <div class="searchBox">
         <form class="column_form" method="post" action="/store/product/">
             {% csrf_token %}
