@@ -107,7 +107,7 @@ def createOrder(request):
             return redirect("/store/order/")
     else:
         form = OrderForm
-    return render(request, "store/manage.html/", {"form":form})
+    return render(request, "store/manage.html/", {"form":form, "title":"Create Order"})
 
 def updateOrder(request, orderId):
     order = get_object_or_404(Order, orderId=orderId)
@@ -118,7 +118,7 @@ def updateOrder(request, orderId):
             return redirect("/store/order/")
     else:
         form = OrderForm(instance=order)
-    return render(request, "store/manage.html/", {"form":form})
+    return render(request, "store/manage.html/", {"form":form, "title":"Update Order"})
 
 def deleteOrder(request, orderId):
     order = get_object_or_404(Order, orderId=orderId)
@@ -135,18 +135,19 @@ def addOrderProduct(request):
             return redirect("/store/order/")
     else:
         form = OrderProductForm
-    return render(request, "store/manage.html/", {"form":form})
+    return render(request, "store/manage.html/", {"form":form, "title":"Add Order-Product"})
 
 def updateOrderProduct(request, orderId, prodId):
     orderProduct = get_object_or_404(Order_Product, order=orderId, product=prodId)
     if request.method == 'POST':
         form = OrderProductForm(request.POST, instance=orderProduct)
         if form.is_valid():
+            print(form)
             form.save()
             return redirect("/store/order/")
     else:
         form = OrderProductForm(instance=orderProduct)
-    return render(request, "store/manage.html/", {"form":form})
+    return render(request, "store/manage.html/", {"form":form, "title":"Update Order-Product"})
 
 def deleteOrderProduct(request, orderId, prodId):
     orderProduct = get_object_or_404(Order_Product, order=orderId, product=prodId)

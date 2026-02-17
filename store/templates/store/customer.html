@@ -7,16 +7,14 @@
         <table>
             <tr>
                 <th>CusId</th>
-                <th>Fname</th>
-                <th>Lname</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Address</th>
             </tr>
             {% for customer in customers %}
             <tr>
                 <td rowspan="2">{{customer.customerId}}</td>
-                <td rowspan="2">{{customer.fname}}</td>
-                <td rowspan="2">{{customer.lname}}</td>
+                <td rowspan="2">{{customer.fname}} {{customer.lname}}</td>
                 <td rowspan="2">{{customer.email}}</td>
                 <td rowspan="2">{{customer.house}}, {{customer.street}}, 
                     {{customer.city}}, {{customer.state}}, {{customer.country}}</td>
@@ -53,7 +51,7 @@
 </div>
 
 <div class="curdBox">
-    <a class="manageBtn" href="/store/create_customer/">Create</a>
+    <a class="manageBtn" href="/store/create_customer/">Create Customer</a>
     <div class="searchBox">
         <form class="column_form" method="post" action="/store/customer/">
             {% csrf_token %}
