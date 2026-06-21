@@ -29,7 +29,7 @@ body{
     background-color: transparent;
     display: flex;
     flex-direction: row;
-    overflow: hidden;
+    overflow:scroll;
 }
 
 .panel{
@@ -350,6 +350,15 @@ input,label,button,select{
     font-size: 16px;
 }
 
+@media(max-width:1394px){
+    .totalBox{
+        width: 60%;
+    }
+    .totalBox_container{
+        width: 170px;
+    }
+}
+
 
 @media(max-width:1343px){
     .totalBox_container{
@@ -361,11 +370,15 @@ input,label,button,select{
     .totalBox{
         width: 30%;
     }
+    .totalBox_container{
+        width: 200px;
+    }
 }
 
 @media(max-width:1248px){
     .chart{
         width: 60%;
+        height:max-content;
     }
     .totalBox{
         width: 40%;
@@ -395,6 +408,21 @@ input,label,button,select{
     .report{
         width: 90%;
         height: 30rem;
+    }
+    .totalBox{
+        width: 40%;
+    }
+    h3{
+        font-size: 16px;
+    }
+    h1{
+        font-size: 21px;
+    }
+}
+
+@media(max-width:754px){
+    .totalBox{
+        width: 30%;
     }
 }
 

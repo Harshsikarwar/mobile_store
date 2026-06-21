@@ -56,7 +56,7 @@
         }
     </script>
     <div class="sales_filter">
-        <form class="sales_form" method="post" action="/store/home/">
+        <form class="sales_form" method="post" action="/store/dashboard/">
             {% csrf_token %}
             <input id="filter" name="filter" value=""  type="hidden">
             <button type="button" onclick="submitFilter('1year')">1 Year</button>
