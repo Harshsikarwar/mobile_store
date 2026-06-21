@@ -1,5 +1,5 @@
 databases:
-  - name: mobile_store
+  - name: mobile_store_DB
     plan: free
     databaseName: mobile_store_DB
     user: mobile_store_db_v1wx_user
@@ -12,10 +12,10 @@ services:
     buildCommand: './build.sh'
     startCommand: 'python -m gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
-      - key: postgresql://mobile_store_db_v1wx_user:5SGsm7mwRs69dOJ4eFL9YvKHRSyXZCKK@dpg-d8rn7iu7r5hc73ei3bo0-a.oregon-postgres.render.com/mobile_store_db_v1wx
+      - key: DATABASE_URL
         fromDatabase:
           name: mobile_store_DB
-          property: connectionString
+          property: postgresql://mobile_store_db_v1wx_user:5SGsm7mwRs69dOJ4eFL9YvKHRSyXZCKK@dpg-d8rn7iu7r5hc73ei3bo0-a.oregon-postgres.render.com/mobile_store_db_v1wx
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
