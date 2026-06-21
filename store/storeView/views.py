@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from ..models import*
 from datetime import*
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #getters
@@ -119,12 +120,12 @@ def get_order(count_all=True, all=False):
         return [total_order,order]
     return [0,order]
 
-
 #rendering views
 def welcome(request):
     return render(request,"store/welcome.html")  
 
-def home(request):
+@login_required(login_url="/account/logout/")
+def dashboard(request):
     label = get_labels()
     data = get_data()
     total_customer = get_customer()[0]
@@ -133,7 +134,6 @@ def home(request):
         filter = request.POST.get("filter")
         label = get_labels(filter)
         data = get_data(filter)
-        print(data)
         return render(request, "store/home.html",{"label":label,
                                                   "data":data[0],
                                                   "sortby":f"{filter} - sales report",
@@ -151,6 +151,7 @@ def home(request):
                                               "total_product":total_product
                                               })
 
+@login_required(login_url="/account/logout/")
 def customer(request):
     customers = get_customer(all=True,count_all=True)
     customer_phone = CustomerPhone.objects.all().order_by("customer")
@@ -217,6 +218,7 @@ def customer(request):
                    "total_customer":customers[0],
                    "customer_phone":customer_phone})
 
+@login_required(login_url="/account/logout/")
 def product(request):
     products = get_product(all=True,count_all=False)
     if request.method == "POST":
@@ -260,6 +262,7 @@ def product(request):
                   {"products":products[1],
                    "total_product":products[0]})
 
+@login_required(login_url="/account/logout/")
 def order(request):
     orders = get_order(all=True,count_all=False)
     order_product = Order_Product.objects.all().order_by("order")

@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Retail Store</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" viewport="UTF-8">
+        <link rel="stylesheet" href={% static 'authStyle.css' %}>
+    </head>
+    <body>
+        {% block auth_block %}
+        {% endblock %}
+    </body>
+</html>

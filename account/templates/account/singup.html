@@ -1,0 +1,12 @@
+{% extends "authLayout.html" %}
+{%block auth_block%}
+    <div class="authBlock">
+        <h1>Signup</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">signup</button>
+        </form>
+        <p class="option">already have account <a href="/account/login/">login</a></p>
+    </div>
+{% endblock %}

@@ -346,8 +346,12 @@ input,label,button,select{
     box-shadow: 0px 0px 10px 0px black;
 }
 
+.errorlist{
+    font-size: 16px;
+}
 
-@media(max-width:1302px){
+
+@media(max-width:1343px){
     .totalBox_container{
         height: fit-content;
     }

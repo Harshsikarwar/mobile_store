@@ -3,7 +3,7 @@ from .storeView import views,managmentView
 
 urlpatterns = [
     path("", views.welcome, name="welcome" ),
-    path("home/", views.home, name="home"),
+    path("dashboard/", views.dashboard, name="dashboard"),
     path("customer/", views.customer, name="customer"),
     path("product/", views.product, name="product"),
     path("order/", views.order, name="order"),
